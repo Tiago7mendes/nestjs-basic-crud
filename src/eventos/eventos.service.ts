@@ -29,4 +29,18 @@ export class EventosService {
         this.eventos.push(evento);
         return evento;
     }
+
+    update(id: number, titulo: string, data: string, local: string): Evento {
+        const evento = this.findOne(id);
+        if(evento) {
+            evento.titulo = titulo;
+            evento.data = data;
+            evento.local = local;
+        }
+        return evento;
+    }
+
+    remove(id: number): void {
+        this.eventos = this.eventos.filter(evento => evento.id !== id);
+    }
 }

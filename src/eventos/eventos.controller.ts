@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { EventosService } from "./eventos.service";
 
 @Controller('eventos')
@@ -18,5 +18,15 @@ export class EventosController {
     @Post()
     create(@Body() body: {titulo: string; data: string; local: string}) {
         return this.eventosService.create(body.titulo, body.data, body.local);
+    }
+
+    @Put(':id')
+    update(@Param('id') id: string, @Body() body: { titulo: string; data: string; local: string}) {
+        return this.eventosService.update(+id, body.titulo, body.data, body.local);
+    }
+
+    @Delete(':id')
+    remove(@Param('id') id: string) {
+        return this.eventosService.remove(+id);
     }
 }
