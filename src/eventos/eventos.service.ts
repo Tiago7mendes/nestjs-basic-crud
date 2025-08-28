@@ -10,6 +10,7 @@ export interface Evento {
 @Injectable()
 export class EventosService {
     private eventos: Evento[] = [];
+    private nextId = 1;
 
     findAll(): Evento[] { // vai encontrar todos os eventos
         return this.eventos;
@@ -20,6 +21,12 @@ export class EventosService {
         if (!evento) {
             throw new Error(`Evento com ID ${id} não encontrado`);
         }
+        return evento;
+    }
+
+    create(titulo: string, data: string, local: string): Evento {
+        const evento = {id: this.nextId++, titulo, data, local};
+        this.eventos.push(evento);
         return evento;
     }
 }

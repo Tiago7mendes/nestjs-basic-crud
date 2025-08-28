@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post } from "@nestjs/common";
 import { EventosService } from "./eventos.service";
 
 @Controller('eventos')
@@ -13,5 +13,10 @@ export class EventosController {
     @Get(':id')
     findOne(@Param('id') id: string) {
         return this.eventosService.findOne(+id);
+    }
+
+    @Post()
+    create(@Body() body: {titulo: string; data: string; local: string}) {
+        return this.eventosService.create(body.titulo, body.data, body.local);
     }
 }
